@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    database: h2
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+  h2:
+    console:
+      enabled: true
+
