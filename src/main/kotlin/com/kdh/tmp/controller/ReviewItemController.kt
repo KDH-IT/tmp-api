@@ -41,7 +41,7 @@ class ReviewItemController(val reviewItemRepository: ReviewItemRepository) {
         }
     }
 
-    @GetMapping("/api/review/{review_id}")
+    @GetMapping("/api/review/{review_id}/review-items")
     fun getReviewItemsByReview(
         @PathVariable("review_id") reviewId: Long
     ): ReviewItemListResponse {
