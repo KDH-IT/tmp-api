@@ -34,7 +34,7 @@ class Review {
     @JoinColumn(name = "reviewerId", nullable = false, updatable = false, insertable = false)
     var reviewer: User? = null
 
-    @OneToMany(targetEntity = ReviewItem::class, fetch = FetchType.EAGER, mappedBy = "reviewId")
+    @OneToMany(targetEntity = ReviewItem::class, fetch = FetchType.EAGER, mappedBy = "review")
     var reviewItems: List<ReviewItem> = ArrayList()
 
     fun createReviewItems(metaReviewContents: List<Long>) {
@@ -42,10 +42,10 @@ class Review {
         metaReviewContents.forEach(this::addReviewItem)
     }
 
-    fun addReviewItem(metaReviewContentId: Long) {
+    private fun addReviewItem(metaReviewContentId: Long) {
         val reviewItem = ReviewItem().also {
             it.metaReviewContentId = metaReviewContentId
-            it.reviewId = this.reviewId
+            it.review = this
         }
         reviewItems = reviewItems + reviewItem
     }

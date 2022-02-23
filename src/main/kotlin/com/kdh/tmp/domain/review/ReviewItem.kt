@@ -1,5 +1,6 @@
 package com.kdh.tmp.domain.review
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
@@ -14,8 +15,6 @@ class ReviewItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     var reviewItemId: Long? = null
 
-    var reviewId: Long? = null
-
     var metaReviewContentId: Long? = null
 
     @LastModifiedDate
@@ -23,6 +22,17 @@ class ReviewItem {
 
     @CreatedDate
     var createdAt: LocalDateTime? = null
+
+    @ManyToOne(targetEntity = Review::class)
+    @JoinColumn(
+        name = "reviewId",
+        columnDefinition = "review_id",
+        nullable = false,
+        updatable = false,
+        insertable = true
+    )
+    @JsonIgnore
+    var review: Review? = null
 
     @ManyToOne(targetEntity = MetaReviewContent::class)
     @JoinColumn(name = "metaReviewContentId", nullable = false, updatable = false, insertable = false)

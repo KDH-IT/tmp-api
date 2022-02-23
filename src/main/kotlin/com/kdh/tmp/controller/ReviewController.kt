@@ -1,6 +1,7 @@
 package com.kdh.tmp.controller
 
 import com.kdh.tmp.domain.review.Review
+import com.kdh.tmp.domain.review.ReviewItemRepository
 import com.kdh.tmp.domain.review.ReviewRepository
 import com.kdh.tmp.dto.review.ReviewItemRequest
 import com.kdh.tmp.dto.review.ReviewListResponse
@@ -10,10 +11,11 @@ import com.kdh.tmp.exception.ErrorCode
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.dao.EmptyResultDataAccessException
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class ReviewController(val reviewRepository: ReviewRepository) {
+class ReviewController(val reviewRepository: ReviewRepository, val reviewItemRepository: ReviewItemRepository) {
 
     val log: Logger = LoggerFactory.getLogger(ReviewController::class.java)
 
@@ -25,11 +27,15 @@ class ReviewController(val reviewRepository: ReviewRepository) {
             .orElseThrow { ApiException(ErrorCode.DATA_NOT_FOUND) }
     }
 
+    @Transactional
     @PostMapping("/api/review")
     fun createReview(
         @RequestBody requestBody: ReviewRequest
     ): Review {
-        return reviewRepository.save(requestBody.createReview())
+        val review = reviewRepository.save(requestBody.createReview())
+        reviewItemRepository.saveAll(review.reviewItems)
+
+        return review
     }
 
     @DeleteMapping("/api/review/{review_id}")

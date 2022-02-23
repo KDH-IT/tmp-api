@@ -24,12 +24,6 @@ class ReviewItemController(val reviewItemRepository: ReviewItemRepository) {
             .orElseThrow { ApiException(ErrorCode.DATA_NOT_FOUND) }
     }
 
-    @PostMapping("/api/review-item")
-    fun createReviewItem(
-        @RequestBody requestBody: ReviewItemRequest
-    ): ReviewItem {
-        return reviewItemRepository.save(requestBody.createReviewItem())
-    }
     @DeleteMapping("/api/review-item/{item_id}")
     fun deleteReviewItem(
         @PathVariable("item_id") itemId: Long
