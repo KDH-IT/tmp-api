@@ -7,10 +7,20 @@ import org.springframework.stereotype.Repository
 @Repository
 interface ItemPostRepository : JpaRepository<ItemPost, Long> {
     // TODO(테이블 인덱스 추가)
-    @Query("select item from ItemPost item where item.seller.userId=:sellerId")
+    @Query("""select item, seller, buyer from ItemPost item
+                left outer join User seller
+                on item.seller.userId = seller.userId
+                inner join User buyer
+                on item.buyer.userId = buyer.userId
+                where item.seller.userId=:sellerId""")
     fun findBySellerId(sellerId: Long): List<ItemPost>
 
-    @Query("select item from ItemPost item where item.buyer.userId=:buyerId")
+    @Query("""select item, seller, buyer from ItemPost item
+                left outer join User seller
+                on item.seller.userId = seller.userId
+                inner join User buyer
+                on item.buyer.userId = buyer.userId
+                where item.buyer.userId=:buyerId""")
     fun findByBuyerId(buyerId: Long): List<ItemPost>
 
 }
