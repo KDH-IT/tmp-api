@@ -1,9 +1,8 @@
-package com.kdh.tmp.controller
+package com.kdh.tmp.controller.crud
 
 import com.kdh.tmp.domain.review.ReviewItem
 import com.kdh.tmp.domain.review.ReviewItemRepository
 import com.kdh.tmp.dto.review.ReviewItemListResponse
-import com.kdh.tmp.dto.review.ReviewItemRequest
 import com.kdh.tmp.exception.ApiException
 import com.kdh.tmp.exception.ErrorCode
 import org.slf4j.Logger

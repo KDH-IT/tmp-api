@@ -15,12 +15,4 @@ class HealthCheckController(val userRepository: UserRepository) {
         return "ping";
     }
 
-    @Transactional
-    @PostMapping("/api/user")
-    fun createUser(): User{
-        val user = User()
-        user.phoneNumber = "123412341234"
-        user.mannerTemperature = 365
-        return userRepository.save(user)
-    }
 }

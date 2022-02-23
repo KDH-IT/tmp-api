@@ -1,9 +1,8 @@
-package com.kdh.tmp.controller
+package com.kdh.tmp.controller.crud
 
 import com.kdh.tmp.domain.review.Review
 import com.kdh.tmp.domain.review.ReviewItemRepository
 import com.kdh.tmp.domain.review.ReviewRepository
-import com.kdh.tmp.dto.review.ReviewItemRequest
 import com.kdh.tmp.dto.review.ReviewListResponse
 import com.kdh.tmp.dto.review.ReviewRequest
 import com.kdh.tmp.exception.ApiException

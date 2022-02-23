@@ -1,4 +1,4 @@
-package com.kdh.tmp.controller
+package com.kdh.tmp.controller.crud
 
 import com.kdh.tmp.domain.review.MetaReviewContent
 import com.kdh.tmp.domain.review.MetaReviewContentRepository

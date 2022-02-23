@@ -17,7 +17,7 @@ open class User {
 
     open var phoneNumber: String? = null
 
-    open var mannerTemperature: Int? = null
+    open var mannerTemperature: Int? = 365
 
     @LastModifiedDate
     open var updatedAt: LocalDateTime? = null
