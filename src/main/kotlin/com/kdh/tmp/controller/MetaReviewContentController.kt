@@ -21,7 +21,7 @@ class MetaReviewContentController(val metaReviewContentRepository: MetaReviewCon
         @PathVariable("content_id") contentId: Long
     ): MetaReviewContent {
         return metaReviewContentRepository.findById(contentId)
-            .orElseThrow { ApiException(ErrorCode.CONTENT_NOT_FOUND) }
+            .orElseThrow { ApiException(ErrorCode.DATA_NOT_FOUND) }
     }
 
     @PostMapping("/api/meta/review-content")
@@ -37,7 +37,7 @@ class MetaReviewContentController(val metaReviewContentRepository: MetaReviewCon
         @PathVariable("content_id") contentId: Long
     ): MetaReviewContent {
         return metaReviewContentRepository.findById(contentId)
-            .orElseThrow { ApiException(ErrorCode.CONTENT_NOT_FOUND) }
+            .orElseThrow { ApiException(ErrorCode.DATA_NOT_FOUND) }
             .also {
                 requestBody.updateMetaReviewContent(it)
             }

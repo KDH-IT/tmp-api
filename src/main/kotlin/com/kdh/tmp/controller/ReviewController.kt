@@ -22,7 +22,7 @@ class ReviewController(val reviewRepository: ReviewRepository) {
         @PathVariable("review_id") reviewId: Long
     ): Review {
         return reviewRepository.findById(reviewId)
-            .orElseThrow { ApiException(ErrorCode.CONTENT_NOT_FOUND) }
+            .orElseThrow { ApiException(ErrorCode.DATA_NOT_FOUND) }
     }
 
     @PostMapping("/api/review")
