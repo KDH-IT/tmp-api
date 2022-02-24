@@ -36,4 +36,8 @@ class SubscribeController(val subscribeRepository: SubscribeRepository) {
     @GetMapping("/api/item-post/{item_post_id}/subscribe")
     fun getSubscribeByItemPostId(@PathVariable("item_post_id") itemPostId: Long): SubscribeListResponse =
         SubscribeListResponse(subscribeRepository.findByItemPostId(itemPostId))
+
+    @GetMapping("/api/user/{user_id}/subscribe")
+    fun getAllSubscribesByUserId(@PathVariable("user_id") subscriberId: Long) =
+        SubscribeListResponse(subscribeRepository.findBySubscriberId(subscriberId))
 }

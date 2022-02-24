@@ -23,7 +23,7 @@ data class ItemPostRequest(
             it.content = this.content
             it.seller = User().also { user -> user.userId = sellerId }
             it.buyer = if (buyerId == null) null else User().also { user -> user.userId = buyerId }
-            it.itemImageUrl = this.itemImageUrl
+            it.itemTitleImage = this.itemImageUrl
         }
     }
 }

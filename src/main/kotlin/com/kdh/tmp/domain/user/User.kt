@@ -15,6 +15,7 @@ open class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     open var userId: Long? = null
 
+    @Column(length = 12)
     open var phoneNumber: String? = null
 
     open var mannerTemperature: Int? = 365

@@ -1,5 +1,6 @@
 package com.kdh.tmp.domain.review
 
+import com.kdh.tmp.domain.user.User
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
@@ -9,14 +10,18 @@ import javax.persistence.*
 @Entity
 @EntityListeners(AuditingEntityListener::class)
 @Table(name = "reviews")
-class Review {
+class Review() {
+
+    constructor(reviewer: User, reviewee: User, reviewComment: String) : this() {
+        this.reviewer = reviewer
+        this.reviewee = reviewee
+        this.reviewComment = reviewComment
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var reviewId: Long? = null
-    var revieweeId: Long? = null
-    var reviewerId: Long? = null
-    var comment: String? = null
+    var reviewComment: String? = null
 
     @LastModifiedDate
     var updatedAt: LocalDateTime? = null
@@ -24,19 +29,15 @@ class Review {
     @CreatedDate
     var createdAt: LocalDateTime? = null
 
+    @ManyToOne
+    @JoinColumn(name = "reviewerId", insertable = true, updatable = false, nullable = false)
+    var reviewer: User? = null
 
-    @OneToMany(targetEntity = ReviewItem::class, fetch = FetchType.EAGER, mappedBy = "review")
-    var reviewItems: List<ReviewItem> = ArrayList()
+    @ManyToOne
+    @JoinColumn(name = "revieweeId", insertable = true, updatable = false, nullable = false)
+    var reviewee: User? = null
 
-    fun setReviewItemsFrom(metaReviewContents: List<Long>) {
-        reviewItems = ArrayList()
-        metaReviewContents.forEach(this::addReviewItem)
-    }
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "review")
+    var reviewItems: List<ReviewItem>? = null
 
-    private fun addReviewItem(metaReviewContentId: Long) {
-        reviewItems = reviewItems + ReviewItem().also {
-            it.metaReviewContent = MetaReviewContent().also { content -> content.metaReviewContentId = metaReviewContentId }
-            it.review = this
-        }
-    }
 }

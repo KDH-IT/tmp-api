@@ -9,13 +9,14 @@ import javax.persistence.*
 
 @Entity
 @EntityListeners(AuditingEntityListener::class)
-@Table(name = "meta_review_contents")
-class MetaReviewContent {
+@Table(name = "meta_review_items")
+class MetaReviewItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var metaReviewContentId: Long? = null
+    var metaReviewItemId: Long? = null
 
-    var itemContent: String? = null
+    @Column(length = 50)
+    var shortReview: String? = null
 
     @Enumerated(EnumType.STRING)
     var positiveYn: Yn? = null

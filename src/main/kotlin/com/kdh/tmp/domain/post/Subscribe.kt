@@ -24,10 +24,10 @@ class Subscribe {
     var updatedAt : LocalDateTime? = null
 
     @ManyToOne
-    @JoinColumn(name = "userId", updatable = false, nullable = false)
-    var user : User? = null
+    @JoinColumn(name = "subscriberId", updatable = false, nullable = false)
+    var subscriber : User? = null
 
     @ManyToOne
-    @JoinColumn(name = "itemId", updatable = false, nullable = false)
+    @JoinColumn(name = "itemPostId", updatable = false, nullable = false)
     var itemPost : ItemPost? = null
 }

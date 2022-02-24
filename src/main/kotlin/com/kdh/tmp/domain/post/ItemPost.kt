@@ -22,15 +22,15 @@ class ItemPost {
 
     var content: String? = null
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "sellerId", insertable = true, updatable = false, nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "sellerId", updatable = false, nullable = false)
     var seller: User? = null
 
-    @ManyToOne(optional = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "buyerId", insertable = true, updatable = true, nullable = true)
+    @ManyToOne
+    @JoinColumn(name = "buyerId", updatable = true)
     var buyer: User? = null
 
-    var itemImageUrl: String? = null
+    var itemTitleImage: String? = null
 
     @LastModifiedDate
     var updatedAt: LocalDateTime? = null

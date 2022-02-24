@@ -29,6 +29,7 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.6.3")
     implementation("org.springframework.boot:spring-boot-starter-web:2.6.3")
+    implementation("org.springframework.boot:spring-boot-starter-validation:2.6.3")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.1")
     implementation("mysql:mysql-connector-java:8.0.25")
     implementation("org.slf4j:slf4j-api:1.7.36")

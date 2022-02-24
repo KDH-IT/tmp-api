@@ -14,3 +14,7 @@ spring:
     hibernate:
       ddl-auto: none
     generate-ddl: false
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false

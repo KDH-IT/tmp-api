@@ -10,7 +10,13 @@ import javax.persistence.*
 @Entity
 @Table(name = "review_items")
 @EntityListeners(AuditingEntityListener::class)
-class ReviewItem {
+class ReviewItem() {
+
+    constructor(review: Review, metaReviewItem: MetaReviewItem) : this() {
+        this.review = review
+        this.meta = metaReviewItem
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var reviewItemId: Long? = null
@@ -22,16 +28,12 @@ class ReviewItem {
     var createdAt: LocalDateTime? = null
 
     @ManyToOne
-    @JoinColumn(
-        name = "reviewId",
-        nullable = false,
-        updatable = false,
-        insertable = true
-    )
+    @JoinColumn(name = "reviewId", updatable = false, insertable = true)
     @JsonIgnore
     var review: Review? = null
 
-    @ManyToOne(targetEntity = MetaReviewContent::class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "metaReviewContentId", nullable = false, updatable = false, insertable = true)
-    var metaReviewContent: MetaReviewContent? = null
+    @ManyToOne(targetEntity = MetaReviewItem::class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "metaReviewItemId", nullable = false, updatable = false, insertable = true)
+    var meta: MetaReviewItem? = null
+
 }
