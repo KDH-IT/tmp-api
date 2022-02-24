@@ -14,36 +14,35 @@ import org.springframework.web.bind.annotation.*
  * 리뷰 선택 항목 메타데이터
  */
 @RestController
-class MetaReviewItemCrudController(val metaReviewItemRepository: MetaReviewItemRepository) {
-
+class MetaReviewItemCrudController(val repository: MetaReviewItemRepository) {
 
     @GetMapping("/api/meta/review-item/{meta_id}")
-    fun getMetaReviewContent(@PathVariable("meta_id") metaId: Long): MetaReviewItem =
-        metaReviewItemRepository.findById(metaId).orElseThrow { ApiException(ErrorCode.DATA_NOT_FOUND) }
+    fun getMetaReviewItem(@PathVariable("meta_id") metaId: Long): MetaReviewItem =
+        repository.findById(metaId).orElseThrow { ApiException(ErrorCode.DATA_NOT_FOUND) }
 
     @PostMapping("/api/meta/review-item")
-    fun createMetaReviewContent(@RequestBody requestBody: MetaReviewItemRequest): MetaReviewItem =
-        metaReviewItemRepository.save(requestBody.createMetaReviewContent())
+    fun createMetaReviewItem(@RequestBody requestBody: MetaReviewItemRequest): MetaReviewItem =
+        repository.save(requestBody.createMetaReviewContent())
 
     @PutMapping("/api/meta/review-item/{meta_id}")
-    fun updateMetaReviewContent(
+    fun updateMetaReviewItem(
         @RequestBody requestBody: MetaReviewItemRequest,
         @PathVariable("meta_id") metaId: Long
     ): MetaReviewItem =
-        metaReviewItemRepository.findById(metaId)
+        repository.findById(metaId)
             .orElseThrow { ApiException(ErrorCode.DATA_NOT_FOUND) }
             .also { requestBody.copyTo(it) }
 
     @DeleteMapping("/api/meta/review-item/{meta_id}")
-    fun deleteMetaReviewContent(@PathVariable("meta_id") metaId: Long) {
+    fun deleteMetaReviewItem(@PathVariable("meta_id") metaId: Long) {
         try {
-            metaReviewItemRepository.deleteById(metaId)
+            repository.deleteById(metaId)
         } catch (ignored: EmptyResultDataAccessException) {
             // do nothing
         }
     }
 
     @GetMapping("/api/meta/review-item")
-    fun getMetaReviewContent(): MetaReviewItemListResponse =
-        MetaReviewItemListResponse(metaReviewItemRepository.findAll())
+    fun findAllMetaReviewItem(): MetaReviewItemListResponse =
+        MetaReviewItemListResponse(repository.findAll())
 }
