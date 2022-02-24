@@ -10,7 +10,7 @@ data class ReviewRequest(
 ) {
     fun createReview(): Review =
         Review().also {
-            it.createReviewItems(metaReviewContents)
+            it.setReviewItemsFrom(metaReviewContents)
 
             it.reviewerId = this.reviewerId
             it.revieweeId = this.revieweeId

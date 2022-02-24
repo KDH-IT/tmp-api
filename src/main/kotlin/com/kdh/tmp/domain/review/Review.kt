@@ -1,6 +1,5 @@
 package com.kdh.tmp.domain.review
 
-import com.kdh.tmp.domain.user.User
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
@@ -17,7 +16,6 @@ class Review {
     var reviewId: Long? = null
     var revieweeId: Long? = null
     var reviewerId: Long? = null
-
     var comment: String? = null
 
     @LastModifiedDate
@@ -26,27 +24,19 @@ class Review {
     @CreatedDate
     var createdAt: LocalDateTime? = null
 
-    @ManyToOne(targetEntity = User::class)
-    @JoinColumn(name = "revieweeId", nullable = false, updatable = false, insertable = false)
-    var reviewee: User? = null
-
-    @ManyToOne(targetEntity = User::class)
-    @JoinColumn(name = "reviewerId", nullable = false, updatable = false, insertable = false)
-    var reviewer: User? = null
 
     @OneToMany(targetEntity = ReviewItem::class, fetch = FetchType.EAGER, mappedBy = "review")
     var reviewItems: List<ReviewItem> = ArrayList()
 
-    fun createReviewItems(metaReviewContents: List<Long>) {
+    fun setReviewItemsFrom(metaReviewContents: List<Long>) {
         reviewItems = ArrayList()
         metaReviewContents.forEach(this::addReviewItem)
     }
 
     private fun addReviewItem(metaReviewContentId: Long) {
-        val reviewItem = ReviewItem().also {
-            it.metaReviewContentId = metaReviewContentId
+        reviewItems = reviewItems + ReviewItem().also {
+            it.metaReviewContent = MetaReviewContent().also { content -> content.metaReviewContentId = metaReviewContentId }
             it.review = this
         }
-        reviewItems = reviewItems + reviewItem
     }
 }

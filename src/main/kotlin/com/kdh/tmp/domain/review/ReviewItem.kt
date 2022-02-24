@@ -15,18 +15,15 @@ class ReviewItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     var reviewItemId: Long? = null
 
-    var metaReviewContentId: Long? = null
-
     @LastModifiedDate
     var updatedAt: LocalDateTime? = null
 
     @CreatedDate
     var createdAt: LocalDateTime? = null
 
-    @ManyToOne(targetEntity = Review::class)
+    @ManyToOne
     @JoinColumn(
         name = "reviewId",
-        columnDefinition = "review_id",
         nullable = false,
         updatable = false,
         insertable = true
@@ -34,7 +31,7 @@ class ReviewItem {
     @JsonIgnore
     var review: Review? = null
 
-    @ManyToOne(targetEntity = MetaReviewContent::class)
-    @JoinColumn(name = "metaReviewContentId", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(targetEntity = MetaReviewContent::class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "metaReviewContentId", nullable = false, updatable = false, insertable = true)
     var metaReviewContent: MetaReviewContent? = null
 }
